@@ -10,29 +10,14 @@
  */
 class Solution {
 public:
+    ListNode* prev=nullptr;
     ListNode* reverseList(ListNode* head) {
-        if(head==nullptr) return nullptr;
-        if(head->next == nullptr) return head;
-        ListNode* prev=nullptr;
+        if(head==nullptr) return prev;
         ListNode* curr=head;
-        // ListNode* next=curr->next;
-        return reverse(prev,curr);
-        
-        
-    }
-    ListNode* reverse(ListNode* prev,ListNode* curr){
-        if(curr==nullptr) return prev;
-        if(curr->next==nullptr) {
-            curr->next = prev;
-            return curr;
-        }
         ListNode* next=curr->next;
-        ListNode* second=next->next;
-        curr->next->next=curr;
         curr->next=prev;
-        prev=next;
-        curr=second;
-        return reverse(prev,curr);
+        prev=curr;
+        return reverseList(next);
         
     }
     
