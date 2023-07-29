@@ -1,6 +1,20 @@
 class Solution {
 public:
-    double myPow(double x, int n, double res = 1) {
-        return n ? myPow(x * x, n / 2, n % 2 ? (n > 0 ? res * x : res / x) : res) : res;
+    double myPow(double x, int n) {
+        return helper( x, (long long)n);
+        
+    }
+    double helper(double x, long long n){
+        if(n==0) return 1.0;
+        if(n<0) return 1.0/helper(x,-1*n);
+        else {
+            if(n%2==0){
+                return helper(x*x,n/2);
+            }
+            else{
+                return x*helper(x*x,(n-1)/2);
+            }
+        }
     }
 };
+ 
