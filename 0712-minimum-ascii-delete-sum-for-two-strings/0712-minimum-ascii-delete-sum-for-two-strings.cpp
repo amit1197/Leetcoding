@@ -1,35 +1,30 @@
 class Solution {
 public:
     int minimumDeleteSum(string s1, string s2) {
-        vector<vector<int>> dp(s1.size()+1,vector<int>(s2.size()+1));
-//         filling the rightmost-bottomost element.
-        dp[s1.size()][s2.size()]=0;
-//         filling the last row
-        for(int i=s2.size()-1;i>=0;i--)
-        {
-            dp[s1.size()][i]=dp[s1.size()][i+1] + int(s2[i]);
+        vector<vector<int>> dp(s1.size()+1,vector<int>(s2.size()+1,0));
+        for(int i=1;i<dp[0].size();i++){
+            dp[0][i]=dp[0][i-1]+ s2[i-1]-'a'+97;
+            // cout<<s2[i-1]<<"::"<<dp[0][i]<<" ";
         }
-//         filling the last column
-        for(int i=s1.size()-1;i>=0;i--)
-        {
-            dp[i][s2.size()]=dp[i+1][s2.size()] + int(s1[i]);
+        // cout<<endl;
+        for(int i=1;i<dp.size();i++){
+            dp[i][0]=dp[i-1][0] + s1[i-1]-'a'+97;
+            // cout<<dp[i][0]<<" ";
         }
-//         filling remaining grid
-        for(int i=s1.size()-1;i>=0;i--)
-        {
-            for(int j=s2.size()-1;j>=0;j--)
-            {
-//                 case1: if s1[i]==s2[j]
-                if(s1[i]==s2[j])
-                {
-                    dp[i][j]=dp[i+1][j+1];
+        // cout<<endl;
+        for(int i=1;i<dp.size();i++){
+            for(int j=1;j<dp[0].size();j++){
+                if(s1[i-1]==s2[j-1]){
+                    dp[i][j]=dp[i-1][j-1];
                 }
-                else
-                {
-                    dp[i][j]=min(int(s2[j]) + dp[i][j+1] , int(s1[i]) + dp[i+1][j]);
+                else{
+                    dp[i][j]=min(dp[i][j-1] + s2[j-1]-'a'+97,dp[i-1][j] +s1[i-1]-'a'+97);
                 }
+                // cout<<dp[i][j]<<" ";
             }
+            // cout<<endl;
         }
-        return dp[0][0];
+        return dp[s1.size()][s2.size()];
+        
     }
 };
