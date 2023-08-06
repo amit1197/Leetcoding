@@ -1,7 +1,7 @@
 class Solution {
 public:
     int numDistinct(string s, string t) {
-        vector<vector<pair<unsigned long long,unsigned long long>>> dp(s.size()+1,vector<pair<unsigned long long,unsigned long long>>(t.size()+1, make_pair(0,1)));
+        vector<vector<pair<unsigned long long,unsigned long long>>> dp(s.size()+1,      vector<pair<unsigned long long,unsigned long long>>(t.size()+1, make_pair(0,1)));
         for(int i=0;i<dp.size();i++){
             dp[i][0]=make_pair(0,1);
         }
@@ -20,6 +20,7 @@ public:
                     unsigned long long xc=dp[i][j-1].first;
                     unsigned long long yc=dp[i][j-1].second;
                     x=max(max(xa,xb),xc);
+                    // x=xa+1;
                     if(xa==x) y+=ya;
                     if(xb==x) y+=yb;
                     if(xc==x) y+=yc;
