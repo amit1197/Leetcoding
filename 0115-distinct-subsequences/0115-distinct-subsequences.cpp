@@ -48,7 +48,7 @@ public:
                 }
             }
         }
-        // cout<<dp[s.size()][t.size()].second<<" "<<dp[s.size()][t.size()].first;
+        
         return dp[s.size()][t.size()].first<t.size()?0:dp[s.size()][t.size()].second;
     }
 };
