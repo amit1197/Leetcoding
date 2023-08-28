@@ -1,16 +1,18 @@
 class Solution {
     public char findTheDifference(String s, String t) {
-        char sorteds[] = s.toCharArray();
-        char sortedt[] = t.toCharArray();
-        Arrays.sort(sorteds);
-        Arrays.sort(sortedt);
-        int i=0;
-        for(i=0;i<s.length();i++){
-            if(sorteds[i] != sortedt[i]){
-                return sortedt[i];
-            }
+        HashMap <Character,Integer> m = new HashMap<>();
+        for (int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            m.put(ch,m.getOrDefault(ch,0)+1);
         }
-        return sortedt[i];
-
+        for(int i=0;i<t.length();i++){
+            char ch=t.charAt(i);
+            int k=m.getOrDefault(ch,0);
+            if(k==0){
+                return ch;
+            }
+            m.put(ch,m.getOrDefault(ch,0)-1);
+        }
+        return '\0';
     }
 }
